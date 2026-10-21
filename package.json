@@ -1,0 +1,26 @@
+{
+  "name": "daily_quest_server",
+  "version": "1.0.0",
+  "description": "Daily Quest - 儿童学习闯关系统后端服务",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "seed": "node src/scripts/seed.js"
+  },
+  "keywords": [
+    "daily-quest",
+    "express",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}
