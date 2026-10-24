@@ -84,7 +84,8 @@ const ChildSchema = new mongoose.Schema({
   monopolyMap: { type: mongoose.Schema.Types.Mixed, default: {} },
   subjectRadar: { type: mongoose.Schema.Types.Mixed, default: {} },
   badges: { type: mongoose.Schema.Types.Mixed, default: [] },
-  monthlyBadge: { type: mongoose.Schema.Types.Mixed, default: {} }
+  monthlyBadge: { type: mongoose.Schema.Types.Mixed, default: {} },
+  statsData: { type: mongoose.Schema.Types.Mixed, default: {} }
 }, {
   timestamps: true,
   minimize: false
