@@ -61,6 +61,7 @@ const ChildSchema = new mongoose.Schema({
   coins: { type: Number, default: 0 },
   totalCoins: { type: Number, default: 0 },
   todayEnergyXP: { type: Number, default: 0 },
+  lastActiveDate: { type: String, default: '' },
   streakDays: { type: Number, default: 0 },
   maxStreak: { type: Number, default: 0 },
   completionRate: { type: Number, default: 0 },
