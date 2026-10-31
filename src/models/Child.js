@@ -78,6 +78,7 @@ const ChildSchema = new mongoose.Schema({
     image: { type: String, default: '🏰' }
   },
   subjects: [SubjectSchema],
+  templateSubjects: [SubjectSchema],
   rewards: [RewardSchema],
   submittedWishes: [WishSchema],
   redeemedLedger: [RedeemedLedgerSchema],
