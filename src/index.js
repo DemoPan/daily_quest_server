@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5001;
 
 // 中间件
 app.use(cors({
-  origin: '*', // 允许前端本地 Vite (http://localhost:5173) 跨域调用
+  origin: true, // 动态回显请求域名(包括 https://daily.mpan.org 和 localhost)，彻底解决与 credentials 的 CORS 冲突
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
