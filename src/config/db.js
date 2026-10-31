@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 export async function connectDB() {
   let uri = (process.env.MONGODB_URI || "").trim();
   // 容错处理：自动剔除多余的引号或不小心粘贴的 "MONGODB_URI=" 前缀
-  if ((uri.startsWith(""") && uri.endsWith(""")) || (uri.startsWith("'") && uri.endsWith("'"))) {
+  if ((uri.startsWith('\"') && uri.endsWith('\"')) || (uri.startsWith("'") && uri.endsWith("'"))) {
     uri = uri.slice(1, -1).trim();
   }
   if (uri.startsWith("MONGODB_URI=")) {
