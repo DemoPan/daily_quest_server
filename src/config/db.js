@@ -1,7 +1,14 @@
 import mongoose from 'mongoose';
 
 export async function connectDB() {
-  const uri = process.env.MONGODB_URI;
+  let uri = (process.env.MONGODB_URI || "").trim();
+  // 容错处理：自动剔除多余的引号或不小心粘贴的 "MONGODB_URI=" 前缀
+  if ((uri.startsWith(""") && uri.endsWith(""")) || (uri.startsWith("'") && uri.endsWith("'"))) {
+    uri = uri.slice(1, -1).trim();
+  }
+  if (uri.startsWith("MONGODB_URI=")) {
+    uri = uri.replace(/^MONGODB_URI=/, "").trim();
+  }
 
   if (!uri || uri.includes('<username>') || uri.includes('xxxx')) {
     console.warn('\n⚠️ [MongoDB] 警告: 未检测到有效的 MONGODB_URI 配置！');
