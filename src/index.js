@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import { connectDB } from './config/db.js';
 import childRoutes from './routes/childRoutes.js';
 
@@ -20,9 +21,11 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // 健康检查
 app.get('/api/health', (req, res) => {
+  const isDbConnected = mongoose.connection.readyState === 1;
   res.json({
     status: 'ok',
     message: '🧭 探险学堂 Daily Quest 后台服务运行正常',
+    database: isDbConnected ? 'connected' : 'connecting',
     timestamp: new Date().toISOString()
   });
 });
@@ -37,18 +40,18 @@ app.use((req, res) => {
 
 // 启动服务
 async function bootstrap() {
-  try {
-    // 连接 MongoDB Atlas 云数据库
-    await connectDB();
+  // 先立即启动 HTTP 监听，确保 Render/Koyeb 等云平台的端口探测立刻秒级通过
+  app.listen(PORT, () => {
+    console.log(`\n🚀 [Server] 后端服务已启动，监听端口: ${PORT}`);
+    console.log(`📡 [API Health Check]: /api/health`);
+    console.log(`👶 [Children API]: /api/children\n`);
+  });
 
-    app.listen(PORT, () => {
-      console.log(`\n🚀 [Server] 后端服务已启动: http://localhost:${PORT}`);
-      console.log(`📡 [API Health Check]: http://localhost:${PORT}/api/health`);
-      console.log(`👶 [Children API]: http://localhost:${PORT}/api/children\n`);
-    });
+  // 异步连接 MongoDB Atlas
+  try {
+    await connectDB();
   } catch (err) {
-    console.error('❌ 服务启动失败:', err.message);
-    process.exit(1);
+    console.error('❌ MongoDB 连接出现异常:', err.message);
   }
 }
 
